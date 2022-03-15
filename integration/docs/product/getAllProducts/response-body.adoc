@@ -1,0 +1,4 @@
+[source,options="nowrap"]
+----
+[{"id":1,"name":"productName","description":"productDescription","price":102.50}]
+----

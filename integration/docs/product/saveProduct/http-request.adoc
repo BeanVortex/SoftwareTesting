@@ -1,0 +1,10 @@
+[source,http,options="nowrap"]
+----
+POST /api/v1/products/save/ HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Content-Length: 81
+Host: localhost:8080
+
+{"id":null,"name":"productName","description":"productDescription","price":102.5}
+----

@@ -18,14 +18,17 @@ public class ProductController {
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         return ResponseEntity.ok(service.save(product));
     }
+
     @GetMapping("/{id}/")
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
+
     @GetMapping("/")
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(service.getAll());
     }
+
     @GetMapping("/search/")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam("str") String str) {
         return ResponseEntity.ok(service.getByNameAndDescriptionContainsIgnoreCase(str));
