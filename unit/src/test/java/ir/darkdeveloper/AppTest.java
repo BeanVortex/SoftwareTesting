@@ -10,20 +10,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppTest {
     @Test
     void getGreeting() {
-        App classUnderTest = new App();
+        var classUnderTest = new App();
         assert classUnderTest.getGreeting() != null;
         assertEquals("Hello, World!", classUnderTest.getGreeting());
     }
 
     @Test
     void division() {
-        App classUnderTest = new App();
+        var classUnderTest = new App();
         assertEquals(2, classUnderTest.division(4, 2));
     }
 
     @Test
     void divisionByZero() {
-        App classUnderTest = new App();
+        var classUnderTest = new App();
         assertThrows(IllegalArgumentException.class, () -> classUnderTest.division(4, 0));
     }
 

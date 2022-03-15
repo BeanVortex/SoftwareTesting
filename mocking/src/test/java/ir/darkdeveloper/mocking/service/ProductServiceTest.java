@@ -30,7 +30,7 @@ class ProductServiceTest {
     @Test
     void getAll() {
         // given
-        List<Product> given = List.of(
+        var given = List.of(
                 new Product(1L, "name", "description", new BigDecimal(1)),
                 new Product(2L, "name2", "description2", new BigDecimal(1)),
                 new Product(2L, "name3", "description3", new BigDecimal("136.54"))
@@ -39,18 +39,18 @@ class ProductServiceTest {
         when(repo.findAll()).thenReturn(given);
 
         // then
-        List<Product> products = service.getAll();
+        var products = service.getAll();
         assertThat(products.size()).isEqualTo(3);
     }
 
     @Test
     void getById() {
         // given
-        Product given = new Product(1L, "name", "description", new BigDecimal(1));
+        var given = new Product(1L, "name", "description", new BigDecimal(1));
         // when
         when(repo.findById(1L)).thenReturn(Optional.of(given));
         // then
-        Product product = service.getById(1L);
+        var product = service.getById(1L);
         assertThat(product.getId()).isEqualTo(1L);
         assertThat(product.getName()).isEqualTo("name");
         assertThat(product.getDescription()).isEqualTo("description");
