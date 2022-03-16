@@ -5,6 +5,9 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,8 +16,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@Testcontainers
 class ProductRepoTest {
     private final ProductRepo productRepo;
+
+    @Container
+    private static final PostgreSQLContainer container = new PostgreSQLContainer("postgres:13.1-alpine")
+            .withDatabaseName("test")
+            .withUsername("username")
+            .withPassword("password");
 
     @Autowired
     ProductRepoTest(ProductRepo productRepo) {

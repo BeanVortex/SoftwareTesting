@@ -5,6 +5,9 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,10 +18,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@Testcontainers
 public class ProductServiceNoOrderTest {
 
     private final ProductService service;
     private List<Long> productIds;
+
+    @Container
+    private static final PostgreSQLContainer container = new PostgreSQLContainer("postgres:13.1-alpine")
+            .withDatabaseName("test")
+            .withUsername("username")
+            .withPassword("password");
 
     @Autowired
     public ProductServiceNoOrderTest(ProductService service) {
