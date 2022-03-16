@@ -6,6 +6,7 @@ import ir.darkdeveloper.testcontainers.DatabaseContainer;
 import ir.darkdeveloper.testcontainers.model.Product;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureRestDocs("docs/product")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-class ProductControllerTest extends DatabaseContainer {
+@ExtendWith(DatabaseContainer.class)
+class ProductControllerTest {
 
     private final WebApplicationContext webApplicationContext;
     private final RestDocumentationContextProvider restDocumentation;

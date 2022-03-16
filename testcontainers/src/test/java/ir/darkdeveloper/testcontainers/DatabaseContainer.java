@@ -1,10 +1,12 @@
 package ir.darkdeveloper.testcontainers;
 
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-public class DatabaseContainer {
+public class DatabaseContainer implements BeforeAllCallback {
 
     private static final PostgreSQLContainer container =
             (PostgreSQLContainer) new PostgreSQLContainer("postgres:13.1-alpine")
@@ -12,10 +14,6 @@ public class DatabaseContainer {
 
     // this script should be run for the first time
     // echo testcontainers.reuse.enable=true  > ~/.testcontainers.properties
-
-    static {
-        container.start();
-    }
 
     @DynamicPropertySource
     public static void overrideProps(DynamicPropertyRegistry registry) {
@@ -26,4 +24,8 @@ public class DatabaseContainer {
         registry.add("spring.jpa.properties.hibernate.dialect", () -> "org.hibernate.dialect.PostgreSQLDialect");
     }
 
+    @Override
+    public void beforeAll(ExtensionContext context) {
+        container.start();
+    }
 }

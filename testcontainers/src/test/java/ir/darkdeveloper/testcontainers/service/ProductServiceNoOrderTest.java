@@ -3,6 +3,7 @@ package ir.darkdeveloper.testcontainers.service;
 import ir.darkdeveloper.testcontainers.DatabaseContainer;
 import ir.darkdeveloper.testcontainers.model.Product;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -19,7 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ProductServiceNoOrderTest extends DatabaseContainer {
+@ExtendWith(DatabaseContainer.class)
+public class ProductServiceNoOrderTest {
 
     private final ProductService service;
     private List<Long> productIds;

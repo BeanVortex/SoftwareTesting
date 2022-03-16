@@ -3,6 +3,7 @@ package ir.darkdeveloper.testcontainers.repo;
 import ir.darkdeveloper.testcontainers.DatabaseContainer;
 import ir.darkdeveloper.testcontainers.model.Product;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -17,7 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-class ProductRepoTest extends DatabaseContainer {
+@ExtendWith(DatabaseContainer.class)
+class ProductRepoTest {
     private final ProductRepo productRepo;
 
     @Autowired
