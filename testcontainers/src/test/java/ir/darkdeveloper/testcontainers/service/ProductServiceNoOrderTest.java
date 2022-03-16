@@ -1,5 +1,6 @@
 package ir.darkdeveloper.testcontainers.service;
 
+import ir.darkdeveloper.testcontainers.DatabaseContainer;
 import ir.darkdeveloper.testcontainers.model.Product;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@Testcontainers
-public class ProductServiceNoOrderTest {
+public class ProductServiceNoOrderTest extends DatabaseContainer {
 
     private final ProductService service;
     private List<Long> productIds;
-
-    @Container
-    private static final PostgreSQLContainer container = new PostgreSQLContainer("postgres:13.1-alpine")
-            .withDatabaseName("test")
-            .withUsername("username")
-            .withPassword("password");
 
     @Autowired
     public ProductServiceNoOrderTest(ProductService service) {
@@ -37,7 +31,6 @@ public class ProductServiceNoOrderTest {
 
     @BeforeEach
     public void setUp() {
-        service.deleteAll();
         var products = List.of(
                 new Product("some_name_Abc", "DesCriPtiOn", new BigDecimal(1)),
                 new Product("NaMeNumber2", "Some_description25", new BigDecimal(1)),

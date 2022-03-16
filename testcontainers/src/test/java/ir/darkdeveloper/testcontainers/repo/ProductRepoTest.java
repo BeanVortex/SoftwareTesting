@@ -1,5 +1,6 @@
 package ir.darkdeveloper.testcontainers.repo;
 
+import ir.darkdeveloper.testcontainers.DatabaseContainer;
 import ir.darkdeveloper.testcontainers.model.Product;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-@Testcontainers
-class ProductRepoTest {
+class ProductRepoTest extends DatabaseContainer {
     private final ProductRepo productRepo;
-
-    @Container
-    private static final PostgreSQLContainer container = new PostgreSQLContainer("postgres:13.1-alpine")
-            .withDatabaseName("test")
-            .withUsername("username")
-            .withPassword("password");
 
     @Autowired
     ProductRepoTest(ProductRepo productRepo) {
